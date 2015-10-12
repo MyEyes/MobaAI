@@ -30,6 +30,15 @@ namespace MobaLib
         public float viewRadius;
         const string basePath = "Characters/";
 
+        public float healthPerLevel;
+        public float healthRegPerLevel;
+        public float resPerLevel;
+        public float resRegPerLevel;
+        public float attackPerLevel;
+        public float attackSpeedPerLevel;
+        public float moveSpeedPerLevel;
+        public float rangePerLevel;
+
         public CharacterInfo(bool isThisDumb)
         {
             maxHealth = 650;
@@ -45,12 +54,21 @@ namespace MobaLib
             magic = 0;
             attackSpeed = 0.6f;
             movespeed = 50;
-            range = 140;
+            range = 40;
 
             resPen = 0;
             armorPen = 0;
 
-            viewRadius = 500;
+            viewRadius = 60;
+
+            healthPerLevel = 130;
+            healthRegPerLevel = 0.1f;
+            resPerLevel = 0;
+            resRegPerLevel = 0;
+            attackPerLevel = 10;
+            attackSpeedPerLevel = 0.1f;
+            moveSpeedPerLevel = 0;
+            rangePerLevel = 0;
         }
 
         public void Store(string file)
@@ -70,6 +88,14 @@ namespace MobaLib
             writer.WriteLine(resPen);
             writer.WriteLine(armorPen);
             writer.WriteLine(viewRadius);
+            writer.WriteLine(healthPerLevel);
+            writer.WriteLine(healthRegPerLevel);
+            writer.WriteLine(resPerLevel);
+            writer.WriteLine(resRegPerLevel);
+            writer.WriteLine(attackPerLevel);
+            writer.WriteLine(attackSpeedPerLevel);
+            writer.WriteLine(moveSpeedPerLevel);
+            writer.WriteLine(rangePerLevel);
             writer.Close();
         }
 
@@ -90,6 +116,14 @@ namespace MobaLib
             resPen = float.Parse(reader.ReadLine());
             armorPen = float.Parse(reader.ReadLine());
             viewRadius = float.Parse(reader.ReadLine());
+            healthPerLevel = float.Parse(reader.ReadLine());
+            healthRegPerLevel = float.Parse(reader.ReadLine()); 
+            resPerLevel = float.Parse(reader.ReadLine()); 
+            resRegPerLevel = float.Parse(reader.ReadLine()); 
+            attackPerLevel = float.Parse(reader.ReadLine()); 
+            attackSpeedPerLevel = float.Parse(reader.ReadLine()); 
+            moveSpeedPerLevel = float.Parse(reader.ReadLine()); 
+            rangePerLevel = float.Parse(reader.ReadLine()); 
             reader.Close();
         }
     }

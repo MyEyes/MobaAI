@@ -15,7 +15,8 @@ namespace MobaLib
         Vector3 nextTarget;
         ITargetable currentEnemy;
 
-        public Minion(Map map, Lane lane, Team team, CharacterInfo info, Vector3 position):base(map,team,info,position)
+        public Minion(Map map, Lane lane, Team team, CharacterInfo info, Vector3 position)
+            : base(map, team, info, position)
         {
             this.lane = lane;
             nextTarget = lane.Waypoints[1];
@@ -102,6 +103,30 @@ namespace MobaLib
                 evade = false;
 
             base.Update(dt);
+        }
+
+        public override float ExpValue
+        {
+            get
+            {
+                return 50;
+            }
+        }
+
+        public override float GoldValue
+        {
+            get
+            {
+                return 25;
+            }
+        }
+
+        public override float Size
+        {
+            get
+            {
+                return 4;
+            }
         }
     }
 }

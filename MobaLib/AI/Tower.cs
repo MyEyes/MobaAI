@@ -33,7 +33,7 @@ namespace MobaLib
                 if (CanAttack(currentEnemy))
                 {
                     atkCooldown = 1.0f / info.attackSpeed;
-                    map.Attacks.Add(new Attack(map, DamageType.Physical, info.attack, info.armorPen, position, currentEnemy, 60));
+                    map.Attacks.Add(new Attack(map, DamageType.Physical, info.attack, info.armorPen, position,this, currentEnemy, 60));
                 }
                 if (currentEnemy.IsDead())
                     currentEnemy = null;
@@ -47,6 +47,14 @@ namespace MobaLib
         {
             Vector3 diff = target.GetPosition() - GetPosition();
             return atkCooldown < 0 && diff.LengthSquared() < info.range*info.range;
+        }
+
+        public override float GoldValue
+        {
+            get
+            {
+                return 150;
+            }
         }
     }
 }

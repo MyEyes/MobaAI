@@ -14,7 +14,7 @@ namespace MobaLib
 
         protected CharacterInfo info;
         
-        float health = 650;
+        protected float health = 650;
 
         float ressources = 100;
 
@@ -48,12 +48,17 @@ namespace MobaLib
             return !dead;
         }
 
+        public float GetHealth()
+        {
+            return health;
+        }
+
         public virtual void Attack(ITargetable target)
         {
             if (CanAttack(target))
             {
                 atkCooldown = 1.0f / info.attackSpeed;
-                map.Attacks.Add(new Attack(map, DamageType.Physical, info.attack, info.armorPen, position, target, 50));
+                map.Attacks.Add(new Attack(map, DamageType.Physical, info.attack, info.armorPen, position, this, target, 50));
                 //target.TakePhysDmg(info.attack, info.armorPen);
             }
         }
@@ -63,6 +68,11 @@ namespace MobaLib
             health -= dmg / (float)Math.Pow(2, (info.armor - pen) / 100);
             if (health < 0)
                 Die();
+        }
+
+        public virtual float Size
+        {
+            get { return 10; }
         }
 
         public void Move(Vector3 delta)
@@ -106,6 +116,12 @@ namespace MobaLib
 
         public float Health { get { return health; } }
 
+        public virtual float ExpValue { get { return 0; } }
+        public virtual float GoldValue { get { return 0; } }
+
+        public virtual void ReceiveGold(float gold) { }
+        public virtual void ReceiveXP(float xp) { }
+
         public virtual void Die()
         {
             dead = true;
@@ -116,5 +132,8 @@ namespace MobaLib
         {
             return dead;
         }
+
+        public CharacterInfo GetInfo()
+        { return info; }
     }
 }

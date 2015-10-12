@@ -1,1 +1,2 @@
 c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTestContent\obj\x86\Debug\MobaTestContent.contentprojResolveAssemblyReference.cache
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTestContent\obj\x86\Debug\MobaTestContent.contentprojResolveAssemblyReference.cache

@@ -29,8 +29,8 @@ namespace MobaTest
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            IsFixedTimeStep = false;
-            graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -58,6 +58,9 @@ namespace MobaTest
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cam = new ManualCamera2D(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, GraphicsDevice);
             moba = new MobaLib.MobaGame("Testmap.mm");
+            Champion c = new Champion(moba.Map, moba.Teams[0], new CharacterInfo("Champion.ci"), moba.Map.Lanes[0].Waypoints[0]);
+            c.SetController(AIController.Instantiate("ChampionAIs.dll", "ChampionAIs.TestController", moba.Map, c));
+            moba.Map.Add(c);
             helper = new DrawHelper(GraphicsDevice);
             cam.CenterHard(new Vector2(500, 500));
             cam.SetZoom(0.72f);
@@ -84,8 +87,8 @@ namespace MobaTest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            //moba.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-            moba.Update(0.016f);
+            moba.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //moba.Update(0.016f);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -141,11 +144,12 @@ namespace MobaTest
                 if (moba.Map.Characters[x].GetTeam() != team)
                     continue;
                 MobaLib.Vector3 position = moba.Map.Characters[x].GetPosition();
+
                 polygons.Add(new Polygon(new MobaLib.Vector3[] { 
-                    position+new MobaLib.Vector3(-2,0,-2),
-                    position+new MobaLib.Vector3(2,0,-2),
-                    position+new MobaLib.Vector3(2,0,2),
-                    position+new MobaLib.Vector3(-2,0,2),
+                    position+new MobaLib.Vector3(-1,0,-1)*moba.Map.Characters[x].Size/2.0f,
+                    position+new MobaLib.Vector3(1,0,-1)*moba.Map.Characters[x].Size/2.0f,
+                    position+new MobaLib.Vector3(1,0,1)*moba.Map.Characters[x].Size/2.0f,
+                    position+new MobaLib.Vector3(-1,0,1)*moba.Map.Characters[x].Size/2.0f,
                 }
                     ));
             }

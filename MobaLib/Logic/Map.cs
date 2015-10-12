@@ -93,6 +93,9 @@ namespace MobaLib
                 AddToPartitioning(structures[x]);
                 AddCollider(structures[x]);
             }
+
+            for (int x = 0; x < lanes.Length; x++)
+                lanes[x].Team = teams[lanes[x].TeamID];
         }
 
         public void Initialize()

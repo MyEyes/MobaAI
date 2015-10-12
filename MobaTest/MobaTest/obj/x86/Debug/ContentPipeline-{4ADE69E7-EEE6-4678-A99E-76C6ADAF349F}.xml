@@ -8,10 +8,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTestContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTestContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

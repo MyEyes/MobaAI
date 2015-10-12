@@ -86,6 +86,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ChampionAIs\ChampionAIs.csproj">
+      <Project>{071168a5-837e-4cc5-9527-ab48a251a9be}</Project>
+      <Name>ChampionAIs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MobaLib\MobaLib.csproj">
       <Project>{7f0da40c-406f-40af-b551-6693c02f9df4}</Project>
       <Name>MobaLib</Name>

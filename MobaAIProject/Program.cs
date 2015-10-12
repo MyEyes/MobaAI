@@ -11,6 +11,8 @@ namespace MobaAIProject
     {
         static void Main(string[] args)
         {
+            CharacterInfo info = new CharacterInfo(true);
+            info.Store("Default.ci");
             /*
             Character c1 = new Character(new Team(), new CharacterInfo("Minion.ci"), new Vector3(100,0,100));
             Character c2 = new Character(new Team(), new CharacterInfo("Champion.ci"), new Vector3(120, 0, 120));

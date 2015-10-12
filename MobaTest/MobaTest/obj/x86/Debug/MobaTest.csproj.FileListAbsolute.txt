@@ -6,3 +6,13 @@ c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTe
 c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\obj\x86\Debug\MobaTest.exe
 c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaTest\MobaTest\obj\x86\Debug\MobaTest.pdb
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\MobaTest.exe
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\MobaTest.pdb
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\MobaLib.dll
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\MobaLib.pdb
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\obj\x86\Debug\MobaTest.csprojResolveAssemblyReference.cache
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\obj\x86\Debug\MobaTest.exe
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\obj\x86\Debug\MobaTest.pdb
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\ChampionAIs.dll
+C:\Users\Ole\Documents\MobaAI\MobaTest\MobaTest\bin\x86\Debug\ChampionAIs.pdb

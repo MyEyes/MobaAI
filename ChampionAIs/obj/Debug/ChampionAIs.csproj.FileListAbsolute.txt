@@ -1,0 +1,7 @@
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\bin\Debug\ChampionAIs.dll
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\bin\Debug\ChampionAIs.pdb
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\bin\Debug\MobaLib.dll
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\bin\Debug\MobaLib.pdb
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\obj\Debug\ChampionAIs.csprojResolveAssemblyReference.cache
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\obj\Debug\ChampionAIs.dll
+C:\Users\Ole\Documents\MobaAI\ChampionAIs\obj\Debug\ChampionAIs.pdb

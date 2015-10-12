@@ -21,8 +21,8 @@ namespace MobaLib
         {
             map = new Map(mapFile);
             teams = new Team[]{
-                new Team("Dick",0,255,255),
-                new Team("Butt",255,0,0)
+                new Team("Dick",0,255,255, new Vector3(10,0,990)),
+                new Team("Butt",255,0,0,new Vector3(990,0,10))
             };
             map.SetTeams(teams);
         }

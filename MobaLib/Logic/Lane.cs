@@ -12,6 +12,8 @@ namespace MobaLib
         Vector3[] waypoints;
         int teamID;
 
+        public Team Team;
+
         public Lane(BinaryReader reader)
         {
             teamID = reader.ReadInt32();

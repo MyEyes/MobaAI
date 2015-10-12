@@ -45,6 +45,19 @@ namespace MobaLib
         {
         }
 
+        public virtual float ExpValue { get { return 0; } }
+        public virtual float GoldValue { get { return 0; } }
+
+        public virtual void ReceiveGold(float gold) { }
+        public virtual void ReceiveXP(float xp) { }
+        public float GetHealth()
+        {
+            return health;
+        }
+
+        public CharacterInfo GetInfo()
+        { return info; }
+
         public Vector3 GetPosition()
         {
             return position;

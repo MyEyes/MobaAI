@@ -13,5 +13,11 @@ namespace MobaLib
         void TakePhysDmg(float dmg, float pen);
         void TakeMagDmg(float dmg, float pen);
         bool IsDead();
+        float GetHealth();
+        float ExpValue { get; }
+        float GoldValue { get; }
+        void ReceiveXP(float xp);
+        void ReceiveGold(float gold);
+        CharacterInfo GetInfo();
     }
 }
