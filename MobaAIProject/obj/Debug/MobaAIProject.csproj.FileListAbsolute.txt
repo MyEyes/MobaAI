@@ -1,0 +1,8 @@
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\bin\Debug\MobaAIProject.exe.config
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\bin\Debug\MobaAIProject.exe
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\bin\Debug\MobaAIProject.pdb
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\obj\Debug\MobaAIProject.csprojResolveAssemblyReference.cache
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\obj\Debug\MobaAIProject.exe
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\obj\Debug\MobaAIProject.pdb
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\bin\Debug\MobaLib.dll
+c:\users\ole\documents\visual studio 2013\Projects\MobaAIProject\MobaAIProject\bin\Debug\MobaLib.pdb
