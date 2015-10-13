@@ -73,7 +73,7 @@ namespace ChampionAIs
                     ICollidable collider = map.GetCollider(predictedPosition);
                     if (collider != null)
                     {
-                        Vector3 vertex = collider.Bounds.ClosestVertex(predictedPosition);
+                        Vector3 vertex = collider.Bounds.GetEdgeToCircumvent(champion.GetPosition(), tp); ;
                         Vector3 dir = vertex - collider.Bounds.Center;
                         dir /= dir.Length();
                         evasionTarget = vertex + dir;
@@ -123,7 +123,7 @@ namespace ChampionAIs
             Vector3 diff = currentEnemy.GetPosition() - champion.GetPosition();
             float length = diff.Length();
             diff /= length;
-            if (length < champion.GetInfo().range)
+            if (champion.InRange(currentEnemy))
             {
                 champion.Attack(currentEnemy);
                 targetPos = champion.GetPosition();

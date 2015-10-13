@@ -95,7 +95,7 @@ namespace MobaLib
                     ICollidable collider = map.GetCollider(predictedPosition);
                     if (collider != null)
                     {
-                        Vector3 vertex = collider.Bounds.ClosestVertex(predictedPosition);
+                        Vector3 vertex = collider.Bounds.GetEdgeToCircumvent(GetPosition(), tp);
                         Vector3 dir = vertex-collider.Bounds.Center;
                         dir/=dir.Length();
                         evasionTarget = vertex + dir*Size;

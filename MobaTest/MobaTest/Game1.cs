@@ -22,6 +22,8 @@ namespace MobaTest
         ManualCamera2D cam;
         MobaLib.MobaGame moba;
         DrawHelper helper;
+        float distance = 0;
+        TestMinion m;
 
 
         public Game1()
@@ -73,6 +75,10 @@ namespace MobaTest
             Champion c2 = new Champion(moba.Map, moba.Teams[1], new CharacterInfo("Champion.ci"), moba.Map.Lanes[1].Waypoints[0]);
             c2.SetController(AIController.Instantiate("ChampionAIs.dll", "ChampionAIs.TestController", moba.Map, c2));
             moba.Map.Add(c2);
+
+            //m = new TestMinion(moba.Map, moba.Map.Lanes[0], moba.Teams[0], new CharacterInfo("Minion.ci"), new MobaLib.Vector3(500,0, 500));
+            //m.SetTarget(new MobaLib.Vector3(500, 0, 500));
+            //moba.Map.Add(m);
         }
 
         /// <summary>
@@ -96,6 +102,17 @@ namespace MobaTest
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 StartNewGame();
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
+                distance += 0.1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Keyboard.GetState().IsKeyDown(Keys.K))
+                distance -= 0.1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            MouseState mouse = Mouse.GetState();
+            /*
+            if (mouse.LeftButton == ButtonState.Pressed)
+                m.SetTarget(new MobaLib.Vector3(mouse.X, 0, mouse.Y));
+             */
+
 
             moba.Update((float)gameTime.ElapsedGameTime.TotalSeconds*5f);
             //moba.Update(0.016f);
@@ -137,8 +154,8 @@ namespace MobaTest
                 }
                     ));
             }
+            
             helper.DrawFilledPolys(polygons.ToArray(), cam.Transformation, Color.White);
-
 
 
             // TODO: Add your drawing code here

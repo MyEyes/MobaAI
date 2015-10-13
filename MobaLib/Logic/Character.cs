@@ -102,12 +102,17 @@ namespace MobaLib
                 Die();
         }
 
+        public float GetSize()
+        {
+            return Size;
+        }
+
         public virtual void Update(float dt)
         {
             //Health
             health += info.healthReg * dt;
-            if (health > info.maxHealth)
-                health = info.maxHealth;
+            if (health > GetInfo().maxHealth)
+                health = GetInfo().maxHealth;
 
             //Res
             ressources += info.resReg * dt;
@@ -118,9 +123,14 @@ namespace MobaLib
             atkCooldown -= dt;
         }
 
+        public bool InRange(ITargetable target)
+        {
+            return (this.position - target.GetPosition()).Length() < info.range + this.GetSize()/2 + target.GetSize()/2;
+        }
+
         public bool CanAttack(ITargetable target)
         {
-            return (AttackAvailable && target.IsTargetable(team) && (this.position - target.GetPosition()).Length() < info.range);
+            return (AttackAvailable && target.IsTargetable(team) && InRange(target));
         }
 
         public bool AttackAvailable { get { return atkCooldown <= 0; } }
@@ -146,7 +156,7 @@ namespace MobaLib
             return dead;
         }
 
-        public CharacterInfo GetInfo()
+        public virtual CharacterInfo GetInfo()
         { return info; }
     }
 }

@@ -18,6 +18,7 @@ namespace MobaLib
         float GoldValue { get; }
         void ReceiveXP(float xp);
         void ReceiveGold(float gold);
+        float GetSize();
         CharacterInfo GetInfo();
     }
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AIController.cs" />
+    <Compile Include="AI\TestMinion.cs" />
     <Compile Include="Logic\Attack.cs" />
     <Compile Include="Logic\Nexus.cs" />
     <Compile Include="Utility\BinaryHelper.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Logic\MobaGame.cs" />
     <Compile Include="Utility\Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\PolygonHelper.cs" />
     <Compile Include="Utility\Rectangle.cs" />
     <Compile Include="Logic\Structure.cs" />
     <Compile Include="Logic\Team.cs" />

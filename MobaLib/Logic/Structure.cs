@@ -91,6 +91,11 @@ namespace MobaLib
 
         }
 
+        public float GetSize()
+        {
+            return (Bounds.BoundingBox.Width + Bounds.BoundingBox.Height) / 2;
+        }
+
         public void TakePhysDmg(float dmg, float pen)
         {
             health -= dmg / (float)Math.Pow(2, (info.armor - pen) / 100);

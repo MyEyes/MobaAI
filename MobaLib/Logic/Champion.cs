@@ -12,10 +12,15 @@ namespace MobaLib
         float backCountdown = backBaseCountdown;
         const float backBaseCountdown = 5;
         float respawnCooldown;
+        CharacterInfo totalInfo;
+
+        int level = 1;
+        float expToNextLevel = 100;
+        float exp = 0;
 
         public Champion(Map map, Team team, CharacterInfo info, Vector3 position):base(map, team, info, position)
         {
-
+            totalInfo = base.GetInfo();
         }
 
         public void SetController(AIController controller)
@@ -65,6 +70,11 @@ namespace MobaLib
             backCountdown = backBaseCountdown;
         }
 
+        public override CharacterInfo GetInfo()
+        {
+            return totalInfo;
+        }
+
         public bool GoingBack
         {
             get { return goingBack; }
@@ -72,7 +82,7 @@ namespace MobaLib
 
         public void Respawn()
         {
-            health = info.maxHealth;
+            health = totalInfo.maxHealth;
             Move(GetTeam().BasePosition - GetPosition());
             dead = false;
         }
@@ -80,8 +90,34 @@ namespace MobaLib
         public void TeleportToBase()
         {
             goingBack = false;
-            health = info.maxHealth;
+            health = totalInfo.maxHealth;
             Move(GetTeam().BasePosition - GetPosition());
+        }
+
+        public void LevelUp()
+        {
+            level++;
+            exp -= expToNextLevel;
+            expToNextLevel = 100 * (float)Math.Pow(level, 1.5f);
+            
+            totalInfo.maxHealth += totalInfo.healthPerLevel;
+            health += totalInfo.healthPerLevel;
+            totalInfo.healthReg += totalInfo.healthRegPerLevel;
+            totalInfo.movespeed += totalInfo.moveSpeedPerLevel;
+            totalInfo.range += totalInfo.rangePerLevel;
+            totalInfo.resMax += totalInfo.resPerLevel;
+            totalInfo.resReg += totalInfo.resRegPerLevel;
+            totalInfo.attack += totalInfo.attackPerLevel;
+            totalInfo.attackSpeed += totalInfo.attackSpeedPerLevel;
+
+            Console.WriteLine("Champion for {0} leveled up to {1}!", GetTeam().Name, level);
+        }
+
+        public override void ReceiveXP(float xp)
+        {
+            exp += xp;
+            if (exp > expToNextLevel)
+                LevelUp();
         }
 
         public override float GoldValue
