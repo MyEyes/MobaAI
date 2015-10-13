@@ -91,18 +91,20 @@ namespace MobaAIProject
 
             map.SetStructures(new Structure[]
                 {
-                    new Structure(map, new Vector3(458,0,547), new Vector3[]{new Vector3(464,0,538), new Vector3(460,0,560), new Vector3(445,0,545)}, "Turret.ci", 0),
-                    new Structure(map, new Vector3(542,0,453), new Vector3[]{new Vector3(533,0,463), new Vector3(540,0,440), new Vector3(555,0,455)}, "Turret.ci", 1),
+                    new Turret(map, new Vector3(458,0,547), new Vector3[]{new Vector3(464,0,538), new Vector3(460,0,560), new Vector3(445,0,545)}, "Turret.ci", 0),
+                    new Turret(map, new Vector3(542,0,453), new Vector3[]{new Vector3(533,0,463), new Vector3(540,0,440), new Vector3(555,0,455)}, "Turret.ci", 1),
+                    new Nexus(map, new Vector3(38,0,955), new Vector3[]{new Vector3(50,0,944), new Vector3(53,0,968), new Vector3(35,0,973), new Vector3(20,0,958), new Vector3(31,0,940)}, "Nexus.ci", 0),
+                    new Nexus(map, new Vector3(964,0,28), new Vector3[]{new Vector3(953,0,40), new Vector3(950,0,17), new Vector3(965,0,11),new Vector3(983,0,25),new Vector3(968,0,45)}, "Nexus.ci", 1),
                 });
 
             map.SetLanes(new Lane[]
                 {
-                    new Lane(0, new Vector3[]{new Vector3(38,0,963), new Vector3(963,0,38)}),
-                    new Lane(1, new Vector3[]{new Vector3(963,0,38),new Vector3(38,0,963)}),
+                    new Lane(0, new Vector3[]{new Vector3(60,0,936), new Vector3(963,0,38)}),
+                    new Lane(1, new Vector3[]{new Vector3(947,0,49),new Vector3(38,0,963)}),
                     new Lane(0, new Vector3[]{new Vector3(48,0,984), new Vector3(907,0,975), new Vector3(966, 0, 896), new Vector3(980,0,44)}),
                     new Lane(1, new Vector3[]{ new Vector3(980,0,44), new Vector3(966, 0, 896), new Vector3(907,0,975),new Vector3(48,0,984)}),
                     new Lane(0, new Vector3[]{new Vector3(20,0,953), new Vector3(33,0,103), new Vector3(91,0,27), new Vector3(951,0,20)}),
-                    new Lane(1, new Vector3[]{new Vector3(951,0,20), new Vector3(91,0,27), new Vector3(33,0,103), new Vector3(20,0,953),})
+                    new Lane(1, new Vector3[]{new Vector3(937,0,23), new Vector3(91,0,27), new Vector3(33,0,103), new Vector3(20,0,953),})
                 });
             return map;
         }

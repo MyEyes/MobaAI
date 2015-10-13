@@ -44,7 +44,15 @@ namespace MobaLib
                 int numStructures = reader.ReadInt32();
                 structures = new Structure[numStructures];
                 for (int x = 0; x < numStructures; x++)
-                    structures[x] = new Turret(this, reader);
+                {
+                    int type = reader.ReadInt32();
+                    switch ((StructureType)type)
+                    {
+                        case StructureType.Turret: structures[x] = new Turret(this, reader); break;
+                        case StructureType.Nexus: structures[x] = new Nexus(this, reader); break;
+                    }
+                    
+                }
 
                 int numLanes = reader.ReadInt32();
                 lanes = new Lane[numLanes];
@@ -63,6 +71,14 @@ namespace MobaLib
         {
             this.sizeX = sizeX;
             this.sizeY = sizeY;
+        }
+
+        public Bush GetBushAt(Vector3 position)
+        {
+            for (int x = 0; x < bushes.Length; x++)
+                if (bushes[x].Bounds.Contains(position))
+                    return bushes[x];
+            return null;
         }
 
         public void SetBushes(Bush[] bushes)

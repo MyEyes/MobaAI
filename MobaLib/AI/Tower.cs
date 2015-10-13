@@ -6,11 +6,12 @@ using System.IO;
 
 namespace MobaLib
 {
-    class Turret:Structure
+    public class Turret:Structure
     {
         ITargetable currentEnemy;
         float atkCooldown;
 
+        public Turret(Map map, Vector3 position, Vector3[] vertices, string characterfile, int teamID) : base(map, position, vertices, characterfile, teamID) { }
         public Turret(Map map, BinaryReader reader) : base(map, reader) { }
 
         public override void Update(float dt)
@@ -35,12 +36,18 @@ namespace MobaLib
                     atkCooldown = 1.0f / info.attackSpeed;
                     map.Attacks.Add(new Attack(map, DamageType.Physical, info.attack, info.armorPen, position,this, currentEnemy, 60));
                 }
-                if (currentEnemy.IsDead())
+                if (currentEnemy.IsDead() || (currentEnemy.GetPosition()-GetPosition()).LengthSquared() < info.range*info.range)
                     currentEnemy = null;
             }
             atkCooldown -= dt;
 
             base.Update(dt);
+        }
+
+        public override void Store(System.IO.BinaryWriter writer)
+        {
+            writer.Write((int)StructureType.Turret);
+            base.Store(writer);
         }
 
         public bool CanAttack(ITargetable target)

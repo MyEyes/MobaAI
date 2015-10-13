@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AI\AIController.cs" />
     <Compile Include="Logic\Attack.cs" />
+    <Compile Include="Logic\Nexus.cs" />
     <Compile Include="Utility\BinaryHelper.cs" />
     <Compile Include="Logic\Bush.cs" />
     <Compile Include="Logic\Champion.cs" />

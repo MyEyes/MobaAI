@@ -71,6 +71,62 @@ namespace MobaLib
             rangePerLevel = 0;
         }
 
+        public static CharacterInfo operator +(CharacterInfo cinfo1, CharacterInfo cinfo2)
+        {
+            CharacterInfo result = cinfo2;
+            result.armor += cinfo1.armor;
+            result.armorPen += cinfo1.armorPen;
+            result.attack += cinfo1.attack;
+            result.attackPerLevel += cinfo1.attackPerLevel;
+            result.attackSpeed += cinfo1.attackSpeed;
+            result.attackSpeedPerLevel += cinfo1.attackSpeedPerLevel;
+            result.healthPerLevel += cinfo1.healthPerLevel;
+            result.healthReg += cinfo1.healthReg;
+            result.healthRegPerLevel += cinfo1.healthRegPerLevel;
+            result.magic += cinfo1.magic;
+            result.maxHealth += cinfo1.maxHealth;
+            result.movespeed += cinfo1.movespeed;
+            result.moveSpeedPerLevel += cinfo1.moveSpeedPerLevel;
+            result.mres += cinfo1.mres;
+            result.range += cinfo1.range;
+            result.rangePerLevel += cinfo1.rangePerLevel;
+            result.resMax += cinfo1.resMax;
+            result.resPen += cinfo1.resPen;
+            result.resPerLevel += cinfo1.resPerLevel;
+            result.resReg += cinfo1.resReg;
+            result.resRegPerLevel += cinfo1.resRegPerLevel;
+            result.viewRadius += cinfo1.viewRadius;
+            return result;
+        }
+
+        public static CharacterInfo operator *(CharacterInfo cinfo1, float val)
+        {
+            CharacterInfo result = cinfo1;
+            result.armor *= val;
+            result.armorPen *= val;
+            result.attack *= val;
+            result.attackPerLevel *= val;
+            result.attackSpeed *= val;
+            result.attackSpeedPerLevel *= val;
+            result.healthPerLevel *= val;
+            result.healthReg *= val;
+            result.healthRegPerLevel *= val;
+            result.magic *= val;
+            result.maxHealth *= val;
+            result.movespeed *= val;
+            result.moveSpeedPerLevel *= val;
+            result.mres *= val;
+            result.range *= val;
+            result.rangePerLevel *= val;
+            result.resMax *= val;
+            result.resPen *= val;
+            result.resPerLevel *= val;
+            result.resReg *= val;
+            result.resRegPerLevel *= val;
+            result.viewRadius *= val;
+            return result;
+        }
+
         public void Store(string file)
         {
             StreamWriter writer = new StreamWriter(basePath + file);

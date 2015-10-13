@@ -20,7 +20,9 @@ namespace MobaLib
 
         float atkCooldown = 0;
 
-        bool dead = false;
+        protected Bush currentBush;
+
+        protected bool dead = false;
         protected Map map;
 
         public Character (Map map, Team team, CharacterInfo info, Vector3 position)
@@ -43,9 +45,9 @@ namespace MobaLib
             return team;
         }
 
-        public bool IsTargetable()
+        public bool IsTargetable(Team team)
         {
-            return !dead;
+            return !dead && (currentBush == null || team.CanSeeInBush(currentBush.ID));
         }
 
         public float GetHealth()
@@ -75,12 +77,21 @@ namespace MobaLib
             get { return 10; }
         }
 
-        public void Move(Vector3 delta)
+        public virtual void Move(Vector3 delta)
         {
             map.RemoveFromPartitioning(this);
+            
+            if (currentBush != null)
+                team.LeaveBush(currentBush.ID);
             position += delta;
+            
             if (map.InCollision(position))
                 position -= delta;
+
+            currentBush = map.GetBushAt(position);
+            if (currentBush != null)
+                team.EnterBush(currentBush.ID);
+
             map.AddToPartitioning(this);
         }
 
@@ -109,7 +120,7 @@ namespace MobaLib
 
         public bool CanAttack(ITargetable target)
         {
-            return (AttackAvailable && (this.position - target.GetPosition()).Length() < info.range);
+            return (AttackAvailable && target.IsTargetable(team) && (this.position - target.GetPosition()).Length() < info.range);
         }
 
         public bool AttackAvailable { get { return atkCooldown <= 0; } }
@@ -125,6 +136,8 @@ namespace MobaLib
         public virtual void Die()
         {
             dead = true;
+            if (currentBush != null)
+                team.LeaveBush(currentBush.ID);
             map.Remove(this);
         }
 

@@ -34,9 +34,10 @@ namespace ChampionAIs
         public override void Update(float dt)
         {
             //Make sure we retreat when we're dying
-            if (champion.GetHealth() < champion.GetInfo().maxHealth * 0.2f)
+            if (champion.GetHealth() < champion.GetInfo().maxHealth * 0.2f && state != TestControllerState.Retreating)
             {
                 state = TestControllerState.Retreating;
+                currentEnemy = null;
                 if (currentLane != null)
                 {
                     targetID--;
@@ -155,15 +156,16 @@ namespace ChampionAIs
                 if (!champion.GoingBack)
                 {
                     champion.GoBack();
-                    nextTarget = champion.GetPosition();
-                    targetPos = nextTarget;
-                    currentLane = null;
-                    targetID = 0;
+                    targetPos = champion.GetPosition();
                 }
             }
 
             if (champion.GetHealth() > champion.GetInfo().maxHealth * 0.4f)
+            {
+                currentLane = null;
+                targetID = 0;
                 state = TestControllerState.Laning;
+            }
         }
 
         public void TryFindTarget()

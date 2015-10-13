@@ -7,6 +7,12 @@ using System.IO;
 
 namespace MobaLib
 {
+    public enum StructureType
+    {
+        Turret,
+        Nexus
+    }
+
     public class Structure : ITargetable, ICollidable
     {
         protected Vector3 position;
@@ -75,7 +81,7 @@ namespace MobaLib
 
         public int TeamID { get { return teamID; } }
 
-        public bool IsTargetable()
+        public bool IsTargetable(Team team)
         {
             return !dead;
         }
@@ -92,7 +98,7 @@ namespace MobaLib
                 Die();
         }
 
-        public void Die()
+        public virtual void Die()
         {
             dead = true;
             map.RemoveFromPartitioning(this);
@@ -109,7 +115,7 @@ namespace MobaLib
             get { return collisionPolygon; }
         }
 
-        public void Store(BinaryWriter writer)
+        public virtual void Store(BinaryWriter writer)
         {
             writer.Write(position);
             collisionPolygon.Store(writer);

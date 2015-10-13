@@ -64,6 +64,32 @@ namespace MobaTest
             device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, vertices, 0, len / 2, VertexPositionColor.VertexDeclaration);
         }
 
+        public void DrawFilledPolys(Polygon[] polygons, Matrix View, Color color)
+        {
+            int len = 0;
+            for (int x = 0; x < polygons.Length; x++)
+            {
+                len += polygons[x].Edges.Length * 3;
+            }
+            be.View = View;
+            be.CurrentTechnique.Passes[0].Apply();
+            VertexPositionColor[] vertices = new VertexPositionColor[len];
+            int count = 0;
+            for (int x = 0; x < polygons.Length; x++)
+            {
+                for (int y = 0; y < polygons[x].Edges.Length; y++)
+                {
+                    vertices[count] = new VertexPositionColor(new Microsoft.Xna.Framework.Vector3(polygons[x].Edges[y].Start.X, polygons[x].Edges[y].Start.Z, 0), color);
+                    vertices[count + 1] = new VertexPositionColor(new Microsoft.Xna.Framework.Vector3(polygons[x].Edges[y].End.X, polygons[x].Edges[y].End.Z, 0), color);
+                    vertices[count + 2] = new VertexPositionColor(new Microsoft.Xna.Framework.Vector3(polygons[x].Center.X, polygons[x].Center.Z, 0), color);
+                    count += 3;
+                }
+            }
+            if (len < 2)
+                return;
+            device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleList, vertices, 0, len / 3, VertexPositionColor.VertexDeclaration);
+        }
+
         public void DrawLines(Vector2[] positions, ManualCamera2D cam, Color color)
         {
             DrawLines(positions, cam, color, positions.Length);

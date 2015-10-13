@@ -25,6 +25,7 @@ namespace MobaLib
         }
 
         public Polygon Bounds { get { return boundary; } }
+        public int ID { get { return id; } }
 
         public void Store(BinaryWriter writer)
         {

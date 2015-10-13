@@ -30,7 +30,7 @@ namespace MobaLib
             {
                 if (targets[x] == this)
                     continue;
-                if (currentEnemy == null && targets[x].GetTeam() != GetTeam())
+                if (currentEnemy == null && targets[x].GetTeam() != GetTeam() && targets[x].IsTargetable(GetTeam()))
                 {
                     currentEnemy = targets[x];
                 }
@@ -66,7 +66,13 @@ namespace MobaLib
                     Attack(currentEnemy);
                     targetPos = GetPosition();
                 }
-                if (currentEnemy.IsDead())
+                else
+                {
+                    ITargetable test = GetClosestEnemy();
+                    if (test != null)
+                        currentEnemy = test;
+                }
+                if (currentEnemy.IsDead() || length > info.viewRadius)
                     currentEnemy = null;
             }
 
@@ -92,7 +98,7 @@ namespace MobaLib
                         Vector3 vertex = collider.Bounds.ClosestVertex(predictedPosition);
                         Vector3 dir = vertex-collider.Bounds.Center;
                         dir/=dir.Length();
-                        evasionTarget = vertex + dir;
+                        evasionTarget = vertex + dir*Size;
                     }
                 }
 
@@ -103,6 +109,33 @@ namespace MobaLib
                 evade = false;
 
             base.Update(dt);
+        }
+
+        public ITargetable GetClosestEnemy()
+        {
+            List<ITargetable> targets = map.GetTargetsInRange(GetPosition(), info.viewRadius);
+
+            float closest = float.MaxValue;
+            ITargetable closestTarget = null;
+
+            for (int x = 0; x < targets.Count; x++)
+            {
+                if (targets[x] == this)
+                    continue;
+                
+                Vector3 diff = targets[x].GetPosition() - GetPosition();
+                float length = diff.Length();
+
+                if (targets[x].GetTeam() != GetTeam() && targets[x].IsTargetable(GetTeam()))
+                {
+                    if (length < closest)
+                    {
+                        closest = length;
+                        closestTarget = targets[x];
+                    }
+                }
+            }
+            return closestTarget;
         }
 
         public override float ExpValue

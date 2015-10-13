@@ -11,7 +11,7 @@ namespace MobaLib
         bool goingBack = false;
         float backCountdown = backBaseCountdown;
         const float backBaseCountdown = 5;
-        Vector3 pasePosition;
+        float respawnCooldown;
 
         public Champion(Map map, Team team, CharacterInfo info, Vector3 position):base(map, team, info, position)
         {
@@ -26,16 +26,31 @@ namespace MobaLib
         public override void Update(float dt)
         {
             backCountdown -= dt;
-            if (goingBack && backCountdown < 0)
-            {
-                goingBack = false;
-                health = info.maxHealth;
-                Move(GetTeam().BasePosition - GetPosition());
-            }
+            respawnCooldown -= dt;
 
             if (controller != null)
                 controller.Update(dt);
+
+            if (goingBack && backCountdown < 0)
+            {
+                TeleportToBase();
+            }
+
+            if (IsDead() && respawnCooldown < 0)
+                Respawn();
             base.Update(dt);
+        }
+
+        public override void Move(Vector3 delta)
+        {
+            goingBack = false;
+            base.Move(delta);
+        }
+
+        public override void Die()
+        {
+            respawnCooldown = 30;
+            dead = true;
         }
 
         public override void TakePhysDmg(float dmg, float pen)
@@ -53,6 +68,20 @@ namespace MobaLib
         public bool GoingBack
         {
             get { return goingBack; }
+        }
+
+        public void Respawn()
+        {
+            health = info.maxHealth;
+            Move(GetTeam().BasePosition - GetPosition());
+            dead = false;
+        }
+
+        public void TeleportToBase()
+        {
+            goingBack = false;
+            health = info.maxHealth;
+            Move(GetTeam().BasePosition - GetPosition());
         }
 
         public override float GoldValue

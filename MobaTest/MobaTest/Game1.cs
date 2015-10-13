@@ -27,10 +27,10 @@ namespace MobaTest
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-            //IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.PreferredBackBufferWidth = 1000;
+            graphics.PreferredBackBufferHeight = 1000;
+            IsFixedTimeStep = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -57,14 +57,22 @@ namespace MobaTest
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             cam = new ManualCamera2D(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, GraphicsDevice);
+            helper = new DrawHelper(GraphicsDevice);
+            cam.CenterHard(new Vector2(500, 500));
+            cam.SetZoom(1);
+            StartNewGame();
+            // TODO: use this.Content to load your game content here
+        }
+
+        public void StartNewGame()
+        {
             moba = new MobaLib.MobaGame("Testmap.mm");
             Champion c = new Champion(moba.Map, moba.Teams[0], new CharacterInfo("Champion.ci"), moba.Map.Lanes[0].Waypoints[0]);
             c.SetController(AIController.Instantiate("ChampionAIs.dll", "ChampionAIs.TestController", moba.Map, c));
             moba.Map.Add(c);
-            helper = new DrawHelper(GraphicsDevice);
-            cam.CenterHard(new Vector2(500, 500));
-            cam.SetZoom(0.72f);
-            // TODO: use this.Content to load your game content here
+            Champion c2 = new Champion(moba.Map, moba.Teams[1], new CharacterInfo("Champion.ci"), moba.Map.Lanes[1].Waypoints[0]);
+            c2.SetController(AIController.Instantiate("ChampionAIs.dll", "ChampionAIs.TestController", moba.Map, c2));
+            moba.Map.Add(c2);
         }
 
         /// <summary>
@@ -86,8 +94,10 @@ namespace MobaTest
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                StartNewGame();
 
-            moba.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            moba.Update((float)gameTime.ElapsedGameTime.TotalSeconds*5f);
             //moba.Update(0.016f);
             // TODO: Add your update logic here
 
@@ -105,15 +115,15 @@ namespace MobaTest
             List<MobaLib.Polygon> polygons = new List<MobaLib.Polygon>();
             for (int x = 0; x < moba.Map.Bushes.Length; x++)
                 polygons.Add(moba.Map.Bushes[x].Bounds);
-            helper.DrawPolys(polygons.ToArray(), cam.Transformation, Color.Green);
+            helper.DrawFilledPolys(polygons.ToArray(), cam.Transformation, Color.Green);
 
             polygons.Clear();
             for (int x = 0; x < moba.Map.Collisions.Length; x++)
                 polygons.Add(moba.Map.Collisions[x].Bounds);
-            helper.DrawPolys(polygons.ToArray(), cam.Transformation, Color.Black);
+            helper.DrawFilledPolys(polygons.ToArray(), cam.Transformation, Color.Black);
 
             for (int x = 0; x < moba.Teams.Length; x++)
-                DrawTeamThings(moba.Teams[x]);
+                DrawTeamThings(moba.Teams[x], moba.Teams[1-x]);
 
             polygons.Clear();
             for (int x = 0; x < moba.Map.Attacks.Count; x++)
@@ -127,21 +137,23 @@ namespace MobaTest
                 }
                     ));
             }
-            helper.DrawPolys(polygons.ToArray(), cam.Transformation, Color.White);
+            helper.DrawFilledPolys(polygons.ToArray(), cam.Transformation, Color.White);
+
+
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
 
-        void DrawTeamThings(Team team)
+        void DrawTeamThings(Team team, Team enemyTeam)
         {
             Color color = new Color(team.R, team.G, team.B);
 
             List<MobaLib.Polygon> polygons = new List<MobaLib.Polygon>();
             for (int x = 0; x < moba.Map.Characters.Count; x++)
             {
-                if (moba.Map.Characters[x].GetTeam() != team)
+                if (moba.Map.Characters[x].GetTeam() != team || !moba.Map.Characters[x].IsTargetable(enemyTeam))
                     continue;
                 MobaLib.Vector3 position = moba.Map.Characters[x].GetPosition();
 
@@ -150,15 +162,20 @@ namespace MobaTest
                     position+new MobaLib.Vector3(1,0,-1)*moba.Map.Characters[x].Size/2.0f,
                     position+new MobaLib.Vector3(1,0,1)*moba.Map.Characters[x].Size/2.0f,
                     position+new MobaLib.Vector3(-1,0,1)*moba.Map.Characters[x].Size/2.0f,
-                }
-                    ));
+                }));
+                polygons.Add(new Polygon(new MobaLib.Vector3[]{
+                    position-new MobaLib.Vector3(moba.Map.Characters[x].Size/2.0f,0, moba.Map.Characters[x].Size/2.0f+2),
+                    position+new MobaLib.Vector3(-1+2*moba.Map.Characters[x].Health/moba.Map.Characters[x].GetInfo().maxHealth,0, -1-4/moba.Map.Characters[x].Size)*moba.Map.Characters[x].Size/2.0f,
+                    position+new MobaLib.Vector3(-1+2*moba.Map.Characters[x].Health/moba.Map.Characters[x].GetInfo().maxHealth,0, -1-2/moba.Map.Characters[x].Size)*moba.Map.Characters[x].Size/2.0f,
+                    position-new MobaLib.Vector3(moba.Map.Characters[x].Size/2.0f,0, moba.Map.Characters[x].Size/2.0f+1),
+                }));
             }
 
             for (int x = 0; x < moba.Map.Structures.Length; x++)
                 if (moba.Map.Structures[x].GetTeam() == team && !moba.Map.Structures[x].IsDead())
                     polygons.Add(moba.Map.Structures[x].Bounds);
 
-            helper.DrawPolys(polygons.ToArray(), cam.Transformation, color);
+            helper.DrawFilledPolys(polygons.ToArray(), cam.Transformation, color);
         }
     }
 }

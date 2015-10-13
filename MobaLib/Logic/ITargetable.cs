@@ -8,7 +8,7 @@ namespace MobaLib
     public interface ITargetable
     {
         Vector3 GetPosition();
-        bool IsTargetable();
+        bool IsTargetable(Team team);
         Team GetTeam();
         void TakePhysDmg(float dmg, float pen);
         void TakeMagDmg(float dmg, float pen);
